@@ -1,0 +1,289 @@
+import React from 'react'
+import Canvas from './canvas/index.js'
+import { fetchDom, lonlatTomercator, scaleRatio } from './tool/index.js'
+import Area from './area/index.js';
+import Scatter from './scatter/index.js';
+import CSymbol from './symbol';
+import Path from './path/index.js'
+
+class Map extends React.Component {
+    canvas = null
+    scatterCanvas = null
+    pathsCanvas = null
+    pathsymbolCanvas = null
+    maxLng = null
+    minLng = null
+    maxLat = null
+    minLat = null
+    centerPoint = null
+    ratio = null
+    areaList = []
+    scatterList = []
+    pathsList = []
+    componentDidMount() {
+        fetchDom(this.canvas.canvas && this.scatterCanvas.canvas && this.pathsCanvas.canvas && this.pathsymbolCanvas.canvas, this.mapRender.bind(this))
+    }
+    componentWillReceiveProps() {
+        setTimeout(() => {
+            this.canvas.initCanvas();
+            this.scatterCanvas.initCanvas();
+            this.pathsCanvas.initCanvas();
+            this.pathsymbolCanvas.initCanvas();
+            this.mapRender();
+        }, 0)
+    }
+    initBounds = () => {
+        let areas = this.props.areas;
+        if (Array.isArray(areas) && areas.length > 0) {
+            this.maxLng = null
+            this.minLng = null
+            this.maxLat = null
+            this.minLat = null
+            for (let i = 0; i < areas.length; i += 1) {
+                if (Array.isArray(areas[i].polygon)) {
+                    areas[i].polygon = areas[i].polygon.map(it => {
+                        let geo = (it);
+                        const x = geo[0];
+                        const y = geo[1];
+                        this.maxLng === null ? this.maxLng = x : (this.maxLng = Math.max(this.maxLng, x));
+                        this.minLng === null ? this.minLng = x : (this.minLng = Math.min(this.minLng, x));
+                        this.maxLat === null ? this.maxLat = y : (this.maxLat = Math.max(this.maxLat, y));
+                        this.minLat === null ? this.minLat = y : (this.minLat = Math.min(this.minLat, y));
+                        return geo;
+                    });
+                }
+            }
+        }
+    }
+    mapRender = () => {
+        this.areaList = [];
+        this.scatterList.forEach(it => {
+            typeof it.stop === 'function' && it.stop();
+        })
+        this.pathsList.forEach(it => {
+            typeof it.stop === 'function' && it.stop();
+        })
+        this.scatterList = [];
+        this.pathsList = [];
+        this.initBounds();
+        this.initCenter();
+        this.initAreas();
+        this.renderAreas();
+        this.initScatters();
+        this.initPaths();
+    }
+    initCenter = () => {
+        const areas = this.props.areas;
+        if (Array.isArray(areas) &&
+            this.maxLng !== null &&
+            this.maxLat !== null &&
+            this.minLng !== null &&
+            this.minLat !== null) {
+            const canvas = this.canvas.canvas;
+            let limitMin = lonlatTomercator([this.minLng, this.minLat]);
+            let limitMax = lonlatTomercator([this.maxLng, this.maxLat]);
+            let centerPoint = [(limitMax[0] + limitMin[0]) / 2, (limitMax[1] + limitMin[1]) / 2];
+            let cwidth = Math.min(canvas.width, canvas.height);
+            let lwidth = Math.max(limitMax[1] - limitMin[1], limitMax[0] - limitMin[0]);
+            let ratio = Math.sqrt(Math.pow(cwidth, 2) + Math.pow(cwidth, 2)) / Math.sqrt(Math.pow(lwidth, 2) + Math.pow(lwidth, 2))
+            this.ratio = ratio;
+            this.centerPoint = centerPoint;
+        }
+    }
+    initAreas = () => {
+        const areas = this.props.areas;
+        const canvas = this.canvas.canvas;
+        const context = canvas.getContext('2d');
+        context.translate(context.canvas.width / 2, context.canvas.height / 2);
+        for (let i = 0; i < areas.length; i += 1) {
+            const area = areas[i];
+            if (Array.isArray(area.polygon)) {
+                let polygons = [...area.polygon]
+                polygons = polygons.map(it => {
+                    let point = lonlatTomercator(it);
+                    return [(point[0] - this.centerPoint[0]) * this.ratio, (this.centerPoint[1] - point[1]) * this.ratio]
+                })
+                this.areaList.push(new Area(
+                    polygons,
+                    context,
+                    area.fillStyle,
+                    area.strokeStyle,
+                    area.name,
+                    area.shadowColor,
+                    area.mouseClick,
+                    area.mouseOver
+                )
+                )
+            }
+        }
+    }
+    renderAreas = () => {
+        this.areaList.forEach((it) => {
+            it.drawMap();
+        });
+    }
+    initScatters = () => {
+        let scatters = this.props.scatters;
+        if (Array.isArray(scatters)) {
+            const context = this.scatterCanvas.canvas.getContext('2d');
+            context.translate(context.canvas.width / 2, context.canvas.height / 2);
+            scatters.forEach(it => {
+                let point = lonlatTomercator(it.point);
+                let x = (point[0] - this.centerPoint[0]) * this.ratio;
+                let y = (this.centerPoint[1] - point[1]) * this.ratio;
+                if (it.pointAtCanvas) {
+                    it.pointAtCanvas({ x: (x + context.canvas.width / 2) / scaleRatio, y: (y + context.canvas.height / 2) / scaleRatio });
+                }
+                if (!it.hidden) {
+                    if (it.path) {
+                        const symbol = new CSymbol({ path: it.path, context, center: this.centerPoint, point: it.point, ratio: this.ratio, color: it.color, mouseClick: it.mouseClick, mouseOver: it.mouseOver });
+                        symbol.render();
+                        this.scatterList.push(symbol);
+                    } else {
+                        const size = typeof it.size === 'number' ? it.size : 10;
+                        let scatter = new Scatter(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
+                        scatter.start();
+                        this.scatterList.push(scatter);
+                    }
+                }
+            })
+        }
+    }
+    initPaths = () => {
+        let paths = this.props.paths;
+        if (Array.isArray(paths)) {
+            const context = this.pathsCanvas.canvas.getContext('2d');
+            context.translate(context.canvas.width / 2, context.canvas.height / 2);
+
+            const scontext = this.pathsymbolCanvas.canvas.getContext('2d');
+            scontext.translate(scontext.canvas.width / 2, scontext.canvas.height / 2);
+            paths.forEach(it => {
+                const points = it.points;
+                if (!Array.isArray(points) || points.length < 2) {
+                    console.error('there should be at least two sets of points in path')
+                    return;
+                }
+                const poinsList = points.map(it => {
+                    const point = lonlatTomercator(it);
+                    const x = (point[0] - this.centerPoint[0]) * this.ratio;
+                    const y = (this.centerPoint[1] - point[1]) * this.ratio;
+                    return [x, y];
+                });
+                const path = new Path({
+                    points: poinsList,
+                    symbol: it.symbol,
+                    width: it.width,
+                    animation: it.animation,
+                    color: it.color,
+                    speed: it.speed,
+                    delay: it.delay,
+                    context,
+                    scontext
+                })
+                typeof path[it.animation || 'alternate'] === 'function' && path[it.animation || 'alternate']();
+                this.pathsList.push(path)
+            })
+        }
+    }
+    mapClick = (e) => {
+        const rect = e.target.getBoundingClientRect();
+        const screenX = e.clientX;
+        const screenY = e.clientY;
+        const x = (screenX - rect.left) * scaleRatio;
+        const y = (screenY - rect.top) * scaleRatio;
+        const areas = this.areaList;
+        for (let i = 0; i < areas.length; i += 1) {
+            const item = areas[i];
+            item.createMapPath();
+            if (item.context.isPointInPath(x, y) && typeof item.click === 'function') {
+                item.click({ x: x / scaleRatio, y: y / scaleRatio, screenX, screenY });
+            }
+        }
+        const scatterList = this.scatterList;
+        for (let i = 0; i < scatterList.length; i += 1) {
+            const scatter = scatterList[i];
+            scatter.createPath();
+            if (scatter.context.isPointInPath(x, y) && typeof scatter.click === 'function') {
+                scatter.click({ x: x / scaleRatio, y: y / scaleRatio, screenX, screenY });
+            }
+        }
+    }
+    mapOver = () => {
+        let time = +new Date();
+        return (e) => {
+            let currentime = +new Date();
+            if (currentime - time > 120) {
+                const rect = e.target.getBoundingClientRect();
+                const screenX = e.clientX;
+                const screenY = e.clientY;
+                const x = (screenX - rect.left) * scaleRatio;
+                const y = (screenY - rect.top) * scaleRatio;
+                const areas = this.areaList;
+                for (let i = 0; i < areas.length; i += 1) {
+                    const item = areas[i];
+                    if (typeof item.over === 'object') {
+                        item.createMapPath();
+                        if (item.context.isPointInPath(x, y)) {
+                            item.cleardrawMap();
+                            item.drawMap(item.over.fillStyle, item.over.strokeStyle);
+                            item.reover = 1;
+                            this.runIn(item, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
+                        } else if (item.reover === 1) {
+                            item.cleardrawMap();
+                            item.drawMap();
+                            this.runOut(item);
+                            item.reover = 0;
+                        }
+                    }
+                }
+                const scatterList = this.scatterList;
+                for (let i = 0; i < scatterList.length; i += 1) {
+                    const scatter = scatterList[i];
+                    if (typeof scatter.over === 'object') {
+                        scatter.createPath();
+                        if (scatter.context.isPointInPath(x, y)) {
+                            if (scatter.constructor.name === 'CSymbol') {
+                                scatter.clean()
+                                scatter.render({ color: scatter.over.color })
+                            }
+                            if (scatter.constructor.name === 'Scatter') {
+                                scatter.stop()
+                                scatter.start(scatter.over.color)
+                            }
+                            scatter.reover = 1;
+                            this.runIn(scatter, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
+                        } else if (scatter.reover === 1) {
+                            if (scatter.constructor.name === 'CSymbol') {
+                                scatter.clean()
+                                scatter.render()
+                            }
+                            if (scatter.constructor.name === 'Scatter') {
+                                scatter.stop()
+                                scatter.start()
+                            }
+                            scatter.reover = 0;
+                            this.runOut(scatter);
+                        }
+                    }
+                }
+                time = +new Date();
+            }
+        }
+    }
+    runIn = (item, obj) => {
+        typeof item.over.moveIn === 'function' && (item.over.moveIn(obj))
+    }
+    runOut = (item) => {
+        typeof item.over.moveOut === 'function' && (item.over.moveOut())
+    }
+    render() {
+        return <div onMouseMove={this.mapOver()} onClick={this.mapClick} id="ge-canvas" style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <Canvas ref={r => this.pathsCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
+            <Canvas ref={r => this.canvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }} />
+            <Canvas ref={r => this.scatterCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 3 }} />
+            <Canvas ref={r => this.pathsymbolCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
+        </div>
+    }
+}
+
+export default Map;

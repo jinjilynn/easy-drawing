@@ -1,0 +1,33 @@
+{
+  "name": "easy-drawing",
+  "version": "1.0.0",
+  "description": "a react component that can draw arbitrary graphics and motion path in canvas by using latitude and longitude",
+  "main": "dist/index.js",
+  "scripts": {},
+  "keywords": [
+    "react",
+    "svg",
+    "graphic",
+    "draw",
+    "canvas",
+    "geo",
+    "latitude",
+    "longitude",
+    "map",
+    "component"
+  ],
+  "author": {
+    "name": "jilin.jin",
+    "email": "jinjilin@hotmail.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/jinjilynn/easy-drawing",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "react": "^16.8.6",
+    "svg-path-bounds": "^1.0.1",
+    "svgpath": "^2.2.2"
+  }
+}
