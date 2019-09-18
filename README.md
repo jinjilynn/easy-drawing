@@ -22,8 +22,8 @@ So you can pick up a set of coordinate points of a graph that you see or in your
 
 - Modern browsers and Internet Explorer support canvas
 
-| <img src="https://jinjilynn.github.io/imgs/edge.png" alt="IE / Edge" width="24px" height="24px" /></br> ie| <img src="https://jinjilynn.github.io/imgs/firefox.png" alt="IE / Edge" width="24px" height="24px" /></br>Firefox | <img src="https://jinjilynn.github.io/imgs/chrome.png" alt="IE / Edge" width="24px" height="24px" /></br>Chrome | <img src="https://jinjilynn.github.io/imgs/safari.png" alt="IE / Edge" width="24px" height="24px" /></br>Safari | <img src="https://jinjilynn.github.io/imgs/opera.png" alt="IE / Edge" width="24px" height="24px" /></br>Opera |
-| --- | --- | --- | --- | --- | --- |
+| <img src="https://jinjilynn.github.io/imgs/edge.png" alt="IE / Edge" width="24px" height="24px" />| <img src="https://jinjilynn.github.io/imgs/firefox.png" alt="IE / Edge" width="24px" height="24px" /> | <img src="https://jinjilynn.github.io/imgs/chrome.png" alt="IE / Edge" width="24px" height="24px" /> | <img src="https://jinjilynn.github.io/imgs/safari.png" alt="IE / Edge" width="24px" height="24px" /> | <img src="https://jinjilynn.github.io/imgs/opera.png" alt="IE / Edge" width="24px" height="24px" /> |
+| --- | --- | --- | --- | --- |
 | 9+ | 3.6+ | 4+ | 4+ | 4+ |
 
 
