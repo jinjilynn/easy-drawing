@@ -7,10 +7,11 @@
     一个react组件，它可以使用经纬度轻松愉悦的绘制任意形状和动态路径
 </div>
 <div></div>
+
 [![NPM](https://img.shields.io/badge/npm-v1.0.0-blue)](https://www.npmjs.com/package/dva-react-hook)    [![size](https://img.shields.io/badge/size-59KB-green)]()
 
 
-[English](./README.md) | 简体中文
+[English](https://github.com/jinjilynn/easy-drawing/blob/master/README.md) | 简体中文
 
 ## ✨ Descriptions
 
