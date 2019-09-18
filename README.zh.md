@@ -19,7 +19,7 @@
 
 鉴于此，我选择使用纬度和经度绘制。 这里，经度是X坐标，纬度是y坐标。
 
-因此，您可以在百度拾取坐标系统中http://api.map.baidu.com/lbsapi/getpoint/index.html上拾取您在地图上看到的或想象到到的一组坐标点。 有了这些点，您可以绘制相应的图形。
+因此，您可以在百度拾取坐标系统中 http://api.map.baidu.com/lbsapi/getpoint/index.html 上拾取您在地图上看到的或想象到到的一组坐标点。 有了这些点，您可以绘制相应的图形。
 
 ## 🚇 支持环境
 
