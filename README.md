@@ -3,10 +3,9 @@
 </p>
 
 <h2 align="center">Easy Drawing</h2>
-<div>
-    A react component that can draw arbitrary graphics and motion path in canvas by using latitude and longitude easily just like copying.
-</div>
-<div></div>
+
+A react component that can draw arbitrary graphics and motion path in canvas by using latitude and longitude easily just like copying.
+
 
 [![NPM](https://img.shields.io/badge/npm-v1.0.0-blue)](https://www.npmjs.com/package/dva-react-hook)    [![size](https://img.shields.io/badge/size-59KB-green)]()
 
