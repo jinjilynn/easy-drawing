@@ -92,6 +92,7 @@ class Map extends React.Component {
     }
     initAreas = () => {
         const areas = this.props.areas;
+        if(!Array.isArray(areas))return;
         const canvas = this.canvas.canvas;
         const context = canvas.getContext('2d');
         context.translate(context.canvas.width / 2, context.canvas.height / 2);
