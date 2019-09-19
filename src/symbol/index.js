@@ -29,6 +29,9 @@ class CSymbol {
         this.over = mouseOver;
     }
     initPath() {
+        if(typeof this.path !== 'string' || this.path.length === 0){
+            throw new Error('d must not be empty')
+        }
         const sobj = svgpath(this.path)
         this.realPath = sobj.rotate(this.rotate).scale(this.scale).rel().toString();
     }
@@ -48,14 +51,21 @@ class CSymbol {
             }
         }
         const fromPoint = this.realPath.slice(1, splitIndex);
-        const sx = window.parseFloat(fromPoint.split(' ')[0]);
-        const sy = window.parseFloat(fromPoint.split(' ')[1]);
-        const [left, top, right, bottom] = getBounds(this.realPath);
-        const spanX = (right + left) / 2 - sx;
-        const spanY = (top + bottom) / 2 - sy;
-        const px = this.spoint[0] - spanX;
-        const py = this.spoint[1] - spanY;
-        this.realPath = this.realPath.replace(fromPoint, `${px} ${py}`);
+        const split = fromPoint.indexOf(',') > -1 ? ',' : ' ';
+        const sx = window.parseFloat(fromPoint.split(split)[0]);
+        const sy = window.parseFloat(fromPoint.split(split)[1]);
+        try {
+            const [left, top, right, bottom] = getBounds(this.realPath);
+            const spanX = (right + left) / 2 - sx;
+            const spanY = (top + bottom) / 2 - sy;
+            const px = this.spoint[0] - spanX;
+            const py = this.spoint[1] - spanY;
+            this.realPath = this.realPath.replace(fromPoint, `${px} ${py}`);
+        }catch{
+            const px = this.spoint[0];
+            const py = this.spoint[1];
+            this.realPath = this.realPath.replace(fromPoint, `${px} ${py}`);
+        }
     }
     createPath(realPath) {
         this.svg.setAttributeNS(null, 'd', realPath || this.realPath);
