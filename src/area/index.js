@@ -57,13 +57,12 @@ class Area {
             this.context.fillText(this.name.text, center.x, center.y);
         }
     }
-    cleardrawMap() {
+    clearMap() {
         this.createMapPath();
         this.context.save();
         this.context.clip();
         this.context.clearRect(-this.context.canvas.width / 2, -this.context.canvas.height / 2, this.context.canvas.width, this.context.canvas.height);
         this.context.restore();
-        this.drawMap();
     }
 }
 

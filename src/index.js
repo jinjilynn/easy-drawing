@@ -225,12 +225,12 @@ class Map extends React.Component {
                     if (typeof item.over === 'object') {
                         item.createMapPath();
                         if (item.context.isPointInPath(x, y)) {
-                            item.cleardrawMap();
-                            item.drawMap(item.over.fillStyle, item.over.strokeStyle);
+                            item.clearMap();
+                            item.drawMap(item.over.fillStyle);
                             item.reover = 1;
                             this.runIn(item, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
                         } else if (item.reover === 1) {
-                            item.cleardrawMap();
+                            item.clearMap();
                             item.drawMap();
                             this.runOut(item);
                             item.reover = 0;
