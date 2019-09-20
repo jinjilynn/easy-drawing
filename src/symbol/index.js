@@ -117,10 +117,10 @@ class CSymbol {
     clean() {
         this.context.save();
         const box = svgBox(this.realPath)
-        const spanX = box.minX - 2;
-        const spanY = box.minY - 2;
+        const spanX = box.minX - 4;
+        const spanY = box.minY - 4;
         this.context.beginPath();
-        this.context.rect(spanX, spanY, box.height + 4, box.width + 4);
+        this.context.rect(spanX, spanY, box.height + 8, box.width + 8);
         this.cleanPath();
         this.context.restore();
     }
