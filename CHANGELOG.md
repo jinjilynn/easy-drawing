@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.0.8
+
+- fix path bug
+
 ## 1.0.7
 
 - svg-path-bounds compatible

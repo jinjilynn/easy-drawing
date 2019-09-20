@@ -5,7 +5,7 @@ class Path {
         this.points = [...param.points];
         this.symbol = param.symbol;
         this.color = param.color || 'yellow';
-        this.width = param.width || 8;
+        this.width = param.width || 2;
         this.animation = param.animation || 'alternate';
         this.speed = Math.abs(param.speed);
         this.delay = param.delay || 0;
@@ -35,7 +35,7 @@ class Path {
     initAnimate() {
         this.svg.setAttributeNS(null, 'd', this.path);
         this.pathLength = this.svg.getTotalLength();
-        if (!this.speed === this.speed) {
+        if (!this.speed === this.speed || !this.speed) {
             this.spanLength = this.pathLength / 100;
         } else {
             this.spanLength = this.pathLength / this.getSpeed(this.speed);

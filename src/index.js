@@ -279,10 +279,10 @@ class Map extends React.Component {
     }
     render() {
         return <div onMouseMove={this.mapOver()} onClick={this.mapClick} id="ge-canvas" style={{ position: 'relative', width: '100%', height: '100%' }}>
-            <Canvas ref={r => this.pathsCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
-            <Canvas ref={r => this.canvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }} />
-            <Canvas ref={r => this.scatterCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 3 }} />
-            <Canvas ref={r => this.pathsymbolCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
+            <Canvas ref={r => this.pathsCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }} />
+            <Canvas ref={r => this.canvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
+            <Canvas ref={r => this.scatterCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 4 }} />
+            <Canvas ref={r => this.pathsymbolCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 3 }} />
         </div>
     }
 }
