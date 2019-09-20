@@ -1,5 +1,5 @@
 import svgpath from 'svgpath';
-import getBounds from 'svg-path-bounds';
+import svgBox from 'svg-path-bounding-box'
 import { lonlatTomercator } from '../tool'
 
 class CSymbol {
@@ -55,9 +55,9 @@ class CSymbol {
         const sx = window.parseFloat(fromPoint.split(split)[0]);
         const sy = window.parseFloat(fromPoint.split(split)[1]);
         try {
-            const [left, top, right, bottom] = getBounds(this.realPath);
-            const spanX = (right + left) / 2 - sx;
-            const spanY = (top + bottom) / 2 - sy;
+            const box = svgBox(this.realPath)
+            const spanX = (box.minX + box.maxX) / 2 - sx;
+            const spanY = (box.maxY + box.minY) / 2 - sy;
             const px = this.spoint[0] - spanX;
             const py = this.spoint[1] - spanY;
             this.realPath = this.realPath.replace(fromPoint, `${px} ${py}`);
@@ -116,11 +116,11 @@ class CSymbol {
     }
     clean() {
         this.context.save();
-        const [left, top, right, bottom] = getBounds(this.realPath);
-        const spanX = right - left + 2;
-        const spanY = bottom - top + 2;
+        const box = svgBox(this.realPath)
+        const spanX = box.minX - 2;
+        const spanY = box.minY - 2;
         this.context.beginPath();
-        this.context.rect(left - 2, top - 2, spanX, spanY);
+        this.context.rect(spanX, spanY, box.height + 4, box.width + 4);
         this.cleanPath();
         this.context.restore();
     }

@@ -45,7 +45,7 @@ class Path {
         const speed = Math.abs(symSpeed);
         this.svg.setAttributeNS(null, 'd', this.path);
         this.symPathLength = this.svg.getTotalLength();
-        if (!speed === speed) {
+        if (!speed === speed || !this.speed) {
             this.symSpanLength = this.symPathLength / 100;
         } else {
             this.symSpanLength = this.symPathLength / this.getSpeed(speed);
