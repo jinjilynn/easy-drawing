@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.2
+
+- remove register when unmount
+
 ## 1.1.1
 
 - fix clean path scale

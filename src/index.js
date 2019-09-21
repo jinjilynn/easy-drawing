@@ -277,6 +277,17 @@ class Map extends React.Component {
     runOut = (item) => {
         typeof item.over.moveOut === 'function' && (item.over.moveOut())
     }
+    componentWillUnmount(){
+        this.areaList = [];
+        this.scatterList.forEach(it => {
+            typeof it.stop === 'function' && it.stop();
+        })
+        this.pathsList.forEach(it => {
+            typeof it.stop === 'function' && it.stop();
+        })
+        this.scatterList = [];
+        this.pathsList = [];
+    }
     render() {
         return <div onMouseMove={this.mapOver()} onClick={this.mapClick} id="ge-canvas" style={{ position: 'relative', width: '100%', height: '100%' }}>
             <Canvas ref={r => this.pathsCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }} />

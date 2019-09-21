@@ -7,7 +7,7 @@
 A react component that can draw arbitrary graphics and motion path in canvas by using latitude and longitude easily just like copying.
 
 
-[![NPM](https://img.shields.io/badge/npm-v1.1.1-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-59KB-green)]()
+[![NPM](https://img.shields.io/badge/npm-v1.1.2-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-59KB-green)]()
 
 
 English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/README.zh.md)
