@@ -38,7 +38,7 @@ class Scatter {
     strokeFlashCirclePath(radius, color) {
         this.context.save();
         this.context.beginPath();
-        let alpha = 1 - this.normalized(radius, this.radius, this.radius * maxR, 0, 0.8);
+        let alpha = 1 - this.normalized(radius, this.radius, this.radius * maxR, 0, 1);
         this.context.globalAlpha = alpha < 0 ? 0.05 : alpha
         this.context.arc(this.x, this.y, radius, 0, Math.PI * 2);
         this.strokePath(color);
