@@ -1,6 +1,10 @@
 # Changelog for easy-drawing
 
-## 1.14
+## 1.1.6
+
+- add static circle symbol
+
+## 1.1.4
 
 - add zIndex option
 

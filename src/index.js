@@ -5,6 +5,7 @@ import Area from './area/index.js';
 import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
 import Path from './path/index.js'
+import Circle from './circle/index.js';
 
 class Map extends React.Component {
     canvas = null
@@ -141,9 +142,15 @@ class Map extends React.Component {
                         symbol.render();
                         this.scatterList.push(symbol);
                     } else {
+                        let scatter;
                         const size = typeof it.size === 'number' ? it.size : 10;
-                        let scatter = new Scatter(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
-                        scatter.start();
+                        if(it.mode === 'static'){
+                            scatter = new Circle(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
+                            scatter.fill();
+                        }else{
+                            scatter = new Scatter(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
+                            scatter.start();
+                        }
                         this.scatterList.push(scatter);
                     }
                 }
@@ -251,6 +258,10 @@ class Map extends React.Component {
                                 scatter.stop()
                                 scatter.start(scatter.over.color)
                             }
+                            if (scatter.constructor.name === 'Cricle') {
+                                scatter.clear()
+                                scatter.fill(scatter.over.color)
+                            }
                             scatter.reover = 1;
                             this.runIn(scatter, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
                         } else if (scatter.reover === 1) {
@@ -261,6 +272,10 @@ class Map extends React.Component {
                             if (scatter.constructor.name === 'Scatter') {
                                 scatter.stop()
                                 scatter.start()
+                            }
+                            if (scatter.constructor.name === 'Cricle') {
+                                scatter.clear()
+                                scatter.fill()
                             }
                             scatter.reover = 0;
                             this.runOut(scatter);
