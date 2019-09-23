@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.14
+
+- add zIndex option
+
 ## 1.1.2
 
 - remove register when unmount

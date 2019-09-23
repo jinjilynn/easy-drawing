@@ -1,3 +1,5 @@
+const maxR = 1.7;
+const seconR = (maxR - 1) / 2 + 1;
 class Scatter {
     constructor(context, x, y, radius, color, mouseClick, mouseOver) {
         this.x = x;
@@ -6,8 +8,8 @@ class Scatter {
         this.color = color || 'yellow';
         this.context = context;
         this.tempRadius1 = this.radius;
-        this.tempRadius2 = this.radius * 1.5;
-        this.tempRadius3 = this.radius * 2.5;
+        this.tempRadius2 = this.radius * seconR;
+        this.tempRadius3 = this.radius * maxR;
         this.animationID = null;
         this.click = mouseClick;
         this.over = mouseOver;
@@ -36,7 +38,7 @@ class Scatter {
     strokeFlashCirclePath(radius, color) {
         this.context.save();
         this.context.beginPath();
-        let alpha = 1 - this.normalized(radius, this.radius, this.radius * 2.7, 0, 0.8);
+        let alpha = 1 - this.normalized(radius, this.radius, this.radius * maxR, 0, 0.8);
         this.context.globalAlpha = alpha < 0 ? 0.05 : alpha
         this.context.arc(this.x, this.y, radius, 0, Math.PI * 2);
         this.strokePath(color);
@@ -58,26 +60,26 @@ class Scatter {
         this.context.restore();
     }
     animate = function (color) {
-        if (this.tempRadius1 > this.radius * 3) {
+        if (this.tempRadius1 > this.radius * (maxR)) {
             this.tempRadius1 = this.radius;
         } else {
-            this.tempRadius1 += 0.12;
+            this.tempRadius1 += 0.09;
         }
-        if (this.tempRadius2 > this.radius * 3) {
+        if (this.tempRadius2 > this.radius * (maxR)) {
             this.tempRadius2 = this.radius;
         } else {
-            this.tempRadius2 += 0.12;
+            this.tempRadius2 += 0.09;
         }
-        if (this.tempRadius3 > this.radius * 3) {
+        if (this.tempRadius3 > this.radius * (maxR)) {
             this.tempRadius3 = this.radius;
         } else {
-            this.tempRadius3 += 0.12;
+            this.tempRadius3 += 0.09;
         }
         this.drawAnimate(color);
-        this.animationID = window.requestAnimationFrame(this.animate.bind(this,color));
+        this.animationID = window.requestAnimationFrame(this.animate.bind(this, color));
     }
     start = function (color) {
-        this.animationID = window.requestAnimationFrame(this.animate.bind(this,color));
+        this.animationID = window.requestAnimationFrame(this.animate.bind(this, color));
     }
     stop = function () {
         this.animationID && window.cancelAnimationFrame(this.animationID)

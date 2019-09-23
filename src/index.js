@@ -92,7 +92,7 @@ class Map extends React.Component {
     }
     initAreas = () => {
         const areas = this.props.areas;
-        if(!Array.isArray(areas))return;
+        if (!Array.isArray(areas)) return;
         const canvas = this.canvas.canvas;
         const context = canvas.getContext('2d');
         context.translate(context.canvas.width / 2, context.canvas.height / 2);
@@ -277,7 +277,7 @@ class Map extends React.Component {
     runOut = (item) => {
         typeof item.over.moveOut === 'function' && (item.over.moveOut())
     }
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.areaList = [];
         this.scatterList.forEach(it => {
             typeof it.stop === 'function' && it.stop();
@@ -289,11 +289,12 @@ class Map extends React.Component {
         this.pathsList = [];
     }
     render() {
+        const { zIndex: { scatters = 3, areas = 1, paths = 2 } = {} } = this.props;
         return <div onMouseMove={this.mapOver()} onClick={this.mapClick} id="ge-canvas" style={{ position: 'relative', width: '100%', height: '100%' }}>
-            <Canvas ref={r => this.pathsCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }} />
-            <Canvas ref={r => this.canvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
-            <Canvas ref={r => this.scatterCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 4 }} />
-            <Canvas ref={r => this.pathsymbolCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 3 }} />
+            <Canvas ref={r => this.pathsCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: paths }} />
+            <Canvas ref={r => this.canvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: areas }} />
+            <Canvas ref={r => this.scatterCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: scatters }} />
+            <Canvas ref={r => this.pathsymbolCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 4 }} />
         </div>
     }
 }
