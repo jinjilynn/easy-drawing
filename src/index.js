@@ -5,7 +5,7 @@ import Area from './area/index.js';
 import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
 import Path from './path/index.js'
-import Circle from './circle/index.js';
+import SCircle from './circle/index.js';
 
 class Map extends React.Component {
     canvas = null
@@ -145,7 +145,7 @@ class Map extends React.Component {
                         let scatter;
                         const size = typeof it.size === 'number' ? it.size : 10;
                         if(it.mode === 'static'){
-                            scatter = new Circle(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
+                            scatter = new SCircle(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
                             scatter.fill();
                         }else{
                             scatter = new Scatter(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
@@ -250,30 +250,30 @@ class Map extends React.Component {
                     if (typeof scatter.over === 'object') {
                         scatter.createPath();
                         if (scatter.context.isPointInPath(x, y)) {
-                            if (scatter.constructor.name === 'CSymbol') {
+                            if (scatter.GENAME === 'symbol') {
                                 scatter.clean()
                                 scatter.render({ color: scatter.over.color })
                             }
-                            if (scatter.constructor.name === 'Scatter') {
+                            if (scatter.GENAME === 'scatter') {
                                 scatter.stop()
                                 scatter.start(scatter.over.color)
                             }
-                            if (scatter.constructor.name === 'Cricle') {
+                            if (scatter.GENAME === 'circle') {
                                 scatter.clear()
                                 scatter.fill(scatter.over.color)
                             }
                             scatter.reover = 1;
                             this.runIn(scatter, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
                         } else if (scatter.reover === 1) {
-                            if (scatter.constructor.name === 'CSymbol') {
+                            if (scatter.GENAME === 'symbol') {
                                 scatter.clean()
                                 scatter.render()
                             }
-                            if (scatter.constructor.name === 'Scatter') {
+                            if (scatter.GENAME === 'scatter') {
                                 scatter.stop()
                                 scatter.start()
                             }
-                            if (scatter.constructor.name === 'Cricle') {
+                            if (scatter.GENAME === 'circle') {
                                 scatter.clear()
                                 scatter.fill()
                             }

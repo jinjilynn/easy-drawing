@@ -27,6 +27,7 @@ class CSymbol {
         }
         this.click = mouseClick;
         this.over = mouseOver;
+        this.GENAME = 'symbol';
     }
     initPath() {
         if(typeof this.path !== 'string' || this.path.length === 0){

@@ -14,6 +14,7 @@ class Scatter {
         this.click = mouseClick;
         this.over = mouseOver;
         this.reover = 0;
+        this.GENAME = 'scatter'
     }
     normalized(x, xmin, xmax, ymin, ymax) {
         let y = (ymax - ymin) * (x - xmin) / (xmax - xmin) + ymin

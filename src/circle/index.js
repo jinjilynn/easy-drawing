@@ -1,4 +1,4 @@
-class Cricle {
+class SCircle {
     constructor(context, x, y, radius, color, mouseClick, mouseOver) {
         this.x = x;
         this.y = y;
@@ -8,6 +8,7 @@ class Cricle {
         this.click = mouseClick;
         this.over = mouseOver;
         this.reover = 0;
+        this.GENAME = 'circle'
     }
     createPath() {
         this.context.beginPath();
@@ -49,4 +50,4 @@ class Cricle {
     }
 }
 
-export default Cricle;
+export default SCircle;
