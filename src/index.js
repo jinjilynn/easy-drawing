@@ -1,6 +1,6 @@
 import React from 'react'
 import Canvas from './canvas/index.js'
-import { fetchDom, lonlatTomercator, scaleRatio } from './tool/index.js'
+import { fetchDom, lonlatTomercator, scaleRatio, scaleSize } from './tool/index.js'
 import Area from './area/index.js';
 import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
@@ -143,7 +143,7 @@ class Map extends React.Component {
                         this.scatterList.push(symbol);
                     } else {
                         let scatter;
-                        const size = typeof it.size === 'number' ? it.size : 10;
+                        const size = typeof it.size === 'number' ? it.size / scaleSize : 10;
                         if(it.mode === 'static'){
                             scatter = new SCircle(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
                             scatter.fill();
