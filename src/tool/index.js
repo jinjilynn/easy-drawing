@@ -12,7 +12,7 @@ export function lonlatTomercator(lonlats) {
     return mercator;
 }
 
-export const scaleRatio = (window.devicePixelRatio && window.devicePixelRatio === 2) ? 2 : 1;
+export const scaleRatio = 1.7;
 
 
 export function distancePoint(point1, point2) {

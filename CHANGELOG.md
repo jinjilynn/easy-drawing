@@ -1,4 +1,7 @@
 # Changelog for easy-drawing
+## 1.1.10
+
+- reset ratio
 
 ## 1.1.6
 
