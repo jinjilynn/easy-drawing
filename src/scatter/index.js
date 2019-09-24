@@ -5,6 +5,7 @@ class Scatter {
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.step = radius / 150;
         this.color = color || 'yellow';
         this.context = context;
         this.tempRadius1 = this.radius;
@@ -64,17 +65,17 @@ class Scatter {
         if (this.tempRadius1 > this.radius * (maxR)) {
             this.tempRadius1 = this.radius;
         } else {
-            this.tempRadius1 += 0.09;
+            this.tempRadius1 += this.step;
         }
         if (this.tempRadius2 > this.radius * (maxR)) {
             this.tempRadius2 = this.radius;
         } else {
-            this.tempRadius2 += 0.09;
+            this.tempRadius2 += this.step;
         }
         if (this.tempRadius3 > this.radius * (maxR)) {
             this.tempRadius3 = this.radius;
         } else {
-            this.tempRadius3 += 0.09;
+            this.tempRadius3 += this.step;
         }
         this.drawAnimate(color);
         this.animationID = window.requestAnimationFrame(this.animate.bind(this, color));
