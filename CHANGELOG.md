@@ -1,4 +1,9 @@
 # Changelog for easy-drawing
+
+## 1.1.12
+
+- add size property 
+
 ## 1.1.10
 
 - reset ratio

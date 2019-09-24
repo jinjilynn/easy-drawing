@@ -75,6 +75,7 @@ class Map extends React.Component {
     }
     initCenter = () => {
         const areas = this.props.areas;
+        const size = this.props.size;
         if (Array.isArray(areas) &&
             this.maxLng !== null &&
             this.maxLat !== null &&
@@ -85,8 +86,8 @@ class Map extends React.Component {
             let limitMax = lonlatTomercator([this.maxLng, this.maxLat]);
             let centerPoint = [(limitMax[0] + limitMin[0]) / 2, (limitMax[1] + limitMin[1]) / 2];
             let cwidth = Math.min(canvas.width, canvas.height);
-            let lwidth = Math.max(limitMax[1] - limitMin[1], limitMax[0] - limitMin[0]);
-            let ratio = Math.sqrt(Math.pow(cwidth, 2) + Math.pow(cwidth, 2)) / Math.sqrt(Math.pow(lwidth, 2) + Math.pow(lwidth, 2))
+            let lwidth = Math[size === 'cover' ? 'min' : 'max' ](limitMax[1] - limitMin[1], limitMax[0] - limitMin[0]);
+            let ratio = Math.sqrt(Math.pow(cwidth, 2) + Math.pow(cwidth, 2)) / Math.sqrt(Math.pow(lwidth, 2) + Math.pow(lwidth, 2));
             this.ratio = ratio;
             this.centerPoint = centerPoint;
         }
@@ -144,10 +145,10 @@ class Map extends React.Component {
                     } else {
                         let scatter;
                         const size = typeof it.size === 'number' ? it.size / scaleSize : 10;
-                        if(it.mode === 'static'){
+                        if (it.mode === 'static') {
                             scatter = new SCircle(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
                             scatter.fill();
-                        }else{
+                        } else {
                             scatter = new Scatter(context, x, y, size, it.color, it.mouseClick, it.mouseOver);
                             scatter.start();
                         }
