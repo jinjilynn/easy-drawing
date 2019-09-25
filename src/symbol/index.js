@@ -52,9 +52,14 @@ class CSymbol {
             }
         }
         const fromPoint = this.realPath.slice(1, splitIndex);
-        const split = fromPoint.indexOf(',') > -1 ? ',' : ' ';
-        const sx = window.parseFloat(fromPoint.split(split)[0]);
-        const sy = window.parseFloat(fromPoint.split(split)[1]);
+        for(let i = 0; i < fromPoint.length; i += 1){
+            if(fromPoint[i] !== '.' && !/^\d+$/.test(fromPoint[i])){
+                splitIndex = i;
+                break;
+            }
+        }
+        const sx = window.parseFloat(fromPoint.slice(0,splitIndex));
+        const sy = window.parseFloat(fromPoint.slice(splitIndex));
         try {
             const box = svgBox(this.realPath)
             const spanX = (box.minX + box.maxX) / 2 - sx;
