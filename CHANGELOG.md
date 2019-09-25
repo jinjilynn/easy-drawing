@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.13
+
+- add texts property
+
 ## 1.1.12
 
 - add size property 

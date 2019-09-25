@@ -6,6 +6,7 @@ import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
 import Path from './path/index.js'
 import SCircle from './circle/index.js';
+import SText from './text/index.js';
 
 class Map extends React.Component {
     canvas = null
@@ -21,8 +22,15 @@ class Map extends React.Component {
     areaList = []
     scatterList = []
     pathsList = []
+    textList = []
     componentDidMount() {
-        fetchDom(this.canvas.canvas && this.scatterCanvas.canvas && this.pathsCanvas.canvas && this.pathsymbolCanvas.canvas, this.mapRender.bind(this))
+        fetchDom(this.canvas.canvas &&
+            this.scatterCanvas.canvas &&
+            this.pathsCanvas.canvas &&
+            this.pathsymbolCanvas.canvas &&
+            this.textCanvas.canvas,
+            this.mapRender.bind(this)
+        )
     }
     componentWillReceiveProps() {
         setTimeout(() => {
@@ -30,6 +38,7 @@ class Map extends React.Component {
             this.scatterCanvas.initCanvas();
             this.pathsCanvas.initCanvas();
             this.pathsymbolCanvas.initCanvas();
+            this.textCanvas.initCanvas();
             this.mapRender();
         }, 0)
     }
@@ -64,6 +73,9 @@ class Map extends React.Component {
         this.pathsList.forEach(it => {
             typeof it.stop === 'function' && it.stop();
         })
+        this.textList.forEach(it => {
+            typeof it.clearText === 'function' && it.clearText();
+        })
         this.scatterList = [];
         this.pathsList = [];
         this.initBounds();
@@ -72,6 +84,7 @@ class Map extends React.Component {
         this.renderAreas();
         this.initScatters();
         this.initPaths();
+        this.initTexts();
     }
     initCenter = () => {
         const areas = this.props.areas;
@@ -86,7 +99,7 @@ class Map extends React.Component {
             let limitMax = lonlatTomercator([this.maxLng, this.maxLat]);
             let centerPoint = [(limitMax[0] + limitMin[0]) / 2, (limitMax[1] + limitMin[1]) / 2];
             let cwidth = Math.min(canvas.width, canvas.height);
-            let lwidth = Math[size === 'cover' ? 'min' : 'max' ](limitMax[1] - limitMin[1], limitMax[0] - limitMin[0]);
+            let lwidth = Math[size === 'cover' ? 'min' : 'max'](limitMax[1] - limitMin[1], limitMax[0] - limitMin[0]);
             let ratio = Math.sqrt(Math.pow(cwidth, 2) + Math.pow(cwidth, 2)) / Math.sqrt(Math.pow(lwidth, 2) + Math.pow(lwidth, 2));
             this.ratio = ratio;
             this.centerPoint = centerPoint;
@@ -192,6 +205,23 @@ class Map extends React.Component {
                 typeof path[it.animation || 'alternate'] === 'function' && path[it.animation || 'alternate']();
                 this.pathsList.push(path)
             })
+        }
+    }
+    initTexts = () => {
+        let texts = this.props.texts;
+        if (Array.isArray(texts)) {
+            const context = this.textCanvas.canvas.getContext('2d');
+            context.translate(context.canvas.width / 2, context.canvas.height / 2);
+            texts.forEach(it => {
+                let point = lonlatTomercator(it.point);
+                let x = (point[0] - this.centerPoint[0]) * this.ratio;
+                let y = (this.centerPoint[1] - point[1]) * this.ratio;
+                if (typeof it.text === 'string') {
+                    const t = new SText(it.text, context, x, y, it.color, it.size);
+                    t.fillText();
+                    this.textList.push(t);
+                }
+            });
         }
     }
     mapClick = (e) => {
@@ -311,6 +341,7 @@ class Map extends React.Component {
             <Canvas ref={r => this.canvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: areas }} />
             <Canvas ref={r => this.scatterCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: scatters }} />
             <Canvas ref={r => this.pathsymbolCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 4 }} />
+            <Canvas ref={r => this.textCanvas = r} style={{ position: 'absolute', top: 0, left: 0, zIndex: 10 }} />
         </div>
     }
 }
