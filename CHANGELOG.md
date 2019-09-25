@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.16
+
+- fix svgpath bug
+
 ## 1.1.14
 
 - fix svgpath bug

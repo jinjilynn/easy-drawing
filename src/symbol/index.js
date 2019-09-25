@@ -53,7 +53,7 @@ class CSymbol {
         }
         const fromPoint = this.realPath.slice(1, splitIndex);
         for(let i = 0; i < fromPoint.length; i += 1){
-            if(fromPoint[i] !== '.' && !/^\d+$/.test(fromPoint[i])){
+            if(i !== 0 && fromPoint[i] !== '.' && !/^\d+$/.test(fromPoint[i])){
                 splitIndex = i;
                 break;
             }
