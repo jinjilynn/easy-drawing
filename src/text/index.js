@@ -1,11 +1,13 @@
 class Text {
-    constructor(text, context, x, y, color, size) {
+    constructor(text, context, x, y, color, size, align,vertical) {
         this.text = text || '';
         this.size = size || '12px';
         this.x = x;
         this.y = y;
         this.color = color || '#fff';
         this.context = context;
+        this.align = align || 'center';
+        this.vertical = vertical || 'middle';
         this.reover = 0;
         this.GENAME = 'text'
     }
@@ -13,8 +15,8 @@ class Text {
         this.context.save();
         this.context.font = `${this.size} 微软雅黑`;
         this.context.fillStyle = this.color;
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
+        this.context.textAlign = this.align;
+        this.context.textBaseline = this.vertical;
         this.context.fillText(this.text, this.x, this.y);
         this.context.restore();
     }

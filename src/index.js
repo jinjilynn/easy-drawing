@@ -217,7 +217,7 @@ class Map extends React.Component {
                 let x = (point[0] - this.centerPoint[0]) * this.ratio;
                 let y = (this.centerPoint[1] - point[1]) * this.ratio;
                 if (typeof it.text === 'string') {
-                    const t = new SText(it.text, context, x, y, it.color, it.size);
+                    const t = new SText(it.text, context, x, y, it.color, it.size, it.align, it.vertical);
                     t.fillText();
                     this.textList.push(t);
                 }
