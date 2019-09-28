@@ -1,3 +1,4 @@
+import { scaleRatio } from '../tool'
 
 class Area {
     constructor(points, context, fillStyle, strokeStyle, name, shadowColor, mouseClick, mouseOver) {
@@ -50,7 +51,16 @@ class Area {
                 return { x, y }
             })
             let center = { x: (maxx + minx) / 2, y: (maxy + miny) / 2 };
-            this.context.font = `${this.name.fontSize || '12px'} 微软雅黑`
+            const size = this.name.fontSize || '12px';
+            const s = parseFloat(size);
+            let splitIndex = 0 ;
+            for(let i = 0; i < size.length; i += 1){
+                if(i !== 0 && size[i] !== '.' && !/^\d+$/.test(size.length)){
+                    splitIndex = i;
+                    break;
+                }
+            }
+            this.context.font = `${s * Math.sqrt(Math.pow(scaleRatio, 2))}${size.slice(splitIndex)} Arial`;
             this.context.textAlign = 'center';
             this.context.textBaseline = 'middle';
             this.context.fillStyle = this.name.color || '#fff';

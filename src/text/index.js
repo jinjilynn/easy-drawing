@@ -1,3 +1,4 @@
+import { scaleRatio } from '../tool';
 class Text {
     constructor(text, context, x, y, color, size, align,vertical) {
         this.text = text || '';
@@ -13,7 +14,16 @@ class Text {
     }
     fillText() {
         this.context.save();
-        this.context.font = `${this.size} 微软雅黑`;
+        const size = this.size;
+        const s = parseFloat(size);
+        let splitIndex = 0 ;
+        for(let i = 0; i < size.length; i += 1){
+            if(i !== 0 && size[i] !== '.' && !/^\d+$/.test(size.length)){
+                splitIndex = i;
+                break;
+            }
+        }
+        this.context.font = `${s * Math.sqrt(Math.pow(scaleRatio, 2))}${size.slice(splitIndex)} Arial`;
         this.context.fillStyle = this.color;
         this.context.textAlign = this.align;
         this.context.textBaseline = this.vertical;

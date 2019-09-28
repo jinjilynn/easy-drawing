@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.18
+
+- fix text size
+
 ## 1.1.17
 
 - add align and vertical properties
