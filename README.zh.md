@@ -5,21 +5,22 @@
 <h2 align="center">Easy Drawing</h2>
 
 
-一个react组件，它可以使用经纬度轻松愉悦的绘制任意形状和动态路径
+一个react组件，它可以让你使用经纬度轻松愉悦的绘制任意形状和动态路径
 
 
-[![NPM](https://img.shields.io/badge/npm-v1.1.19-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-45KB-green)]()
+[![NPM](https://img.shields.io/badge/npm-v1.1.19-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-45KB-green)](https://www.npmjs.com/package/easy-drawing)
 
 
 [English](https://github.com/jinjilynn/easy-drawing/blob/master/README.md) | 简体中文
 
 ## ✨ 描述
 
-一般来说，即使你很好地掌握了canvas和svg，你仍然会在绘图过程中遇到很多挑战。 最大的挑战就是如何轻地松获取坐标，包括各种形状的顶点坐标，以及您想要知道相对于某个参照物的任何坐标。 因此，如果您可以像在临摹图形一样轻松地在canvas中绘制，那将是多么轻松。
+通常情况下，就算你对canvas和svg掌握的已经很好了，但是在绘制图形过程中仍然会面临各种挑战，其中最大的挑战就是坐标，比如说各种形状的轮廓顶点坐标或者某个图形内部某个点的位置坐标，一般这种类型的坐标要经过复杂或简单的数学算法得到，所以有时候我就寻思着要是可以像描画一样，不用经过计算就能画出来岂不是美滋滋。
 
-鉴于此，我选择使用纬度和经度绘制。 这里，经度是X坐标，纬度是y坐标。
+基于这种想法，我选择了使用经纬度绘图的思路，这里经度就是x坐标，纬度就是y坐标
 
-因此，您可以在百度拾取坐标系统中 http://api.map.baidu.com/lbsapi/getpoint/index.html 上拾取您在地图上看到的或想象到到的一组坐标点。 有了这些点，您可以绘制相应的图形。
+这样你就可以借助百度拾取坐标 http://api.map.baidu.com/lbsapi/getpoint/index.htm 系统画出任何在地图上出现的或者你想象的图形。
+
 
 ## 🚇 支持环境
 
