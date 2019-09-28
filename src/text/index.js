@@ -18,7 +18,7 @@ class Text {
         const s = parseFloat(size);
         let splitIndex = 0 ;
         for(let i = 0; i < size.length; i += 1){
-            if(i !== 0 && size[i] !== '.' && !/^\d+$/.test(size.length)){
+            if(i !== 0 && size[i] !== '.' && !/^\d+$/.test(size[i])){
                 splitIndex = i;
                 break;
             }
