@@ -35,7 +35,7 @@ class Path {
     initAnimate() {
         this.svg.setAttributeNS(null, 'd', this.path);
         this.pathLength = this.svg.getTotalLength();
-        if (!this.speed === this.speed || !this.speed) {
+        if (isNaN(this.speed) || !this.speed) {
             this.spanLength = this.pathLength / 100;
         } else {
             this.spanLength = this.pathLength / this.getSpeed(this.speed);
@@ -45,7 +45,7 @@ class Path {
         const speed = Math.abs(symSpeed);
         this.svg.setAttributeNS(null, 'd', this.path);
         this.symPathLength = this.svg.getTotalLength();
-        if (!speed === speed || !this.speed) {
+        if (isNaN(speed) || !this.speed) {
             this.symSpanLength = this.symPathLength / 100;
         } else {
             this.symSpanLength = this.symPathLength / this.getSpeed(speed);
