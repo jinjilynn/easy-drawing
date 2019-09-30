@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.21
+
+- add timer
+
 ## 1.1.18
 
 - fix text size

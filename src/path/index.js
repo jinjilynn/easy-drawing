@@ -1,3 +1,4 @@
+import { timer } from 'd3-timer';
 import CSymbol from '../symbol';
 
 class Path {
@@ -73,7 +74,7 @@ class Path {
             this.timeoutID = setTimeout(resolve, this.delay);
         }).then(() => {
             this.initAnimate();
-            this.animationID = window.requestAnimationFrame(this.alternateA.bind(this));
+            this.animationID = timer(this.alternateA.bind(this));
         });
         this.runSymbol();
     }
@@ -106,7 +107,6 @@ class Path {
             this.context.stroke();
             this.context.restore();
         }
-        this.animationPathID = window.requestAnimationFrame(this.alternateA.bind(this));
     }
     symbolA() {
         if (this.symStep >= this.symPathLength) {
@@ -120,7 +120,6 @@ class Path {
             this.symbolInstance.clean()
             this.symbolInstance.render({ point: [x1, y1] });
         }
-        this.symbolAID = window.requestAnimationFrame(this.symbolA.bind(this));
     }
     normal() {
         this.initStaticPath();
@@ -145,11 +144,11 @@ class Path {
         this.symbolInstance = new CSymbol({ path: this.symbol, context: this.scontext, point: this.points[0], color: this.color, });
         this.symbolInstance.render();
         this.initSymbolAnimate(this.symbol.speed);
-        this.symbolAID = window.requestAnimationFrame(this.symbolA.bind(this));
+        this.symbolAID = timer(this.symbolA.bind(this));
     }
     stop() {
-        this.animationPathID && window.cancelAnimationFrame(this.animationPathID);
-        this.symbolAID && window.cancelAnimationFrame(this.symbolAID);
+        this.animationID && this.animationID.stop();
+        this.symbolAID && this.symbolAID.stop();
         this.timeoutID && window.clearTimeout(this.timeoutID);
         this.stimeoutID && window.clearTimeout(this.stimeoutID)
     }

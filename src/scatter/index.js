@@ -1,3 +1,5 @@
+import { timer } from 'd3-timer';
+
 const maxR = 1.7;
 const seconR = (maxR - 1) / 2 + 1;
 class Scatter {
@@ -78,13 +80,12 @@ class Scatter {
             this.tempRadius3 += this.step;
         }
         this.drawAnimate(color);
-        this.animationID = window.requestAnimationFrame(this.animate.bind(this, color));
     }
     start = function (color) {
-        this.animationID = window.requestAnimationFrame(this.animate.bind(this, color));
+        this.timer = timer(this.animate.bind(this, color));
     }
     stop = function () {
-        this.animationID && window.cancelAnimationFrame(this.animationID)
+        this.timer && this.timer.stop();
     }
 }
 
