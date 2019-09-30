@@ -7,7 +7,7 @@
 A react component that can draw arbitrary graphics、arbitrary maps and motion path in canvas by using latitude and longitude easily just like copying.
 
 
-[![NPM](https://img.shields.io/badge/npm-v1.1.22-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-46KB-green)](https://www.npmjs.com/package/easy-drawing)
+[![NPM](https://img.shields.io/badge/npm-v1.1.23-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-46KB-green)](https://www.npmjs.com/package/easy-drawing)
 
 
 English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/README.zh.md)
@@ -18,13 +18,14 @@ Adhere to the principle of simplicity, you will not spend too much energy
 
 ### [`Documents & Examples`](https://jinjilynn.github.io)
 
+
 ## ✨ Descriptions
 
 In general, even if you master the canvas and svg well, you will still face many challenges in the drawing process. The biggest challenge is how to get the coordinates easily, which including the vertex coordinates of various shapes, and any coordinates you want to know relative to a reference. So how relaxed it will be if you can draw a graph in canvas as easily as copy a graph.
 
 In view of this, I chose to draw using latitude and longitude. Here,the longitude is the X coordinate, and the latitude is the y coordinate. 
 
-So you can pick up a set of coordinate points of a graph that you see or in your mind  on Google maps https://www.google.com/maps. With these points, you can draw the corresponding graphics.
+So you can pick up a set of coordinate points of a graph that you see or in your mind  on [Google maps](https://www.google.com/maps). With these points, you can draw the corresponding graphics.
 
 ## 🚇 Environment Support
 

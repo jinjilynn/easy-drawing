@@ -8,7 +8,7 @@
 一个react组件，它可以让你使用经纬度轻松愉悦的绘制任意形状的图形、任意区域的地图和任意的动态路径
 
 
-[![NPM](https://img.shields.io/badge/npm-v1.1.22-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-46KB-green)](https://www.npmjs.com/package/easy-drawing)
+[![NPM](https://img.shields.io/badge/npm-v1.1.23-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-46KB-green)](https://www.npmjs.com/package/easy-drawing)
 
 
 [English](https://github.com/jinjilynn/easy-drawing/blob/master/README.en.md) | 简体中文
@@ -18,6 +18,7 @@
 坚持一贯的至简原则，不需要花费很多精力
 
 ### [`文档和例子`](https://jinjilynn.github.io)
+
 
 ## ✨ 描述
 
