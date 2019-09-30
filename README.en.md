@@ -12,13 +12,10 @@ A react component that can draw arbitrary graphics、arbitrary maps and motion p
 
 English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/README.zh.md)
 
-## 📄 Documents & Examples
+## 📄 [Documents & Examples](https://jinjilynn.github.io)
 
-Adhere to the principle of simplicity, you will not spend too much energy
+- Adhere to the principle of simplicity, you will not spend too much energy
 
-### [`Documents & Examples`](https://jinjilynn.github.io)
-
-### 
 
 ## ✨ Descriptions
 
