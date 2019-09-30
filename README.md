@@ -4,23 +4,25 @@
 
 <h2 align="center">Easy Drawing</h2>
 
-A react component that can draw arbitrary graphics and motion path in canvas by using latitude and longitude easily just like copying.
+
+一个react组件，它可以让你使用经纬度轻松愉悦的绘制任意形状的图形、任意区域的地图和任意的动态路径
 
 
 [![NPM](https://img.shields.io/badge/npm-v1.1.22-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-46KB-green)](https://www.npmjs.com/package/easy-drawing)
 
 
-English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/README.zh.md)
+[English](https://github.com/jinjilynn/easy-drawing/blob/master/README.en.md) | 简体中文
 
-## ✨ Descriptions
+## ✨ 描述
 
-In general, even if you master the canvas and svg well, you will still face many challenges in the drawing process. The biggest challenge is how to get the coordinates easily, which including the vertex coordinates of various shapes, and any coordinates you want to know relative to a reference. So how relaxed it will be if you can draw a graph in canvas as easily as copy a graph.
+通常情况下，就算你对canvas和svg掌握的已经很好了，但是在绘制图形过程中仍然会面临各种挑战，其中最大的挑战就是坐标，比如说各种形状的轮廓顶点坐标或者某个图形内部某个点的位置坐标，一般这种类型的坐标要经过复杂或简单的数学算法得到，所以有时候我就寻思着要是可以像描画一样，不用经过计算就能画出来岂不是美滋滋。
 
-In view of this, I chose to draw using latitude and longitude. Here,the longitude is the X coordinate, and the latitude is the y coordinate. 
+基于这种想法，我选择了使用经纬度绘图的思路，这里经度就是x坐标，纬度就是y坐标
 
-So you can pick up a set of coordinate points of a graph that you see or in your mind  on Google maps https://www.google.com/maps. With these points, you can draw the corresponding graphics.
+这样你就可以借助百度拾取坐标 http://api.map.baidu.com/lbsapi/getpoint/index.htm 系统画出任何在地图上出现的或者你想象的图形。
 
-## 🚇 Environment Support
+
+## 🚇 支持环境
 
 Modern browsers and Internet Explorer support canvas
 
@@ -29,7 +31,7 @@ Modern browsers and Internet Explorer support canvas
 | 9+  | 3.6+ | 4+  | 4+  | 4+  |
 
 
-## ⏬ Install
+## ⏬ 安装
 
 ```bash
 npm install easy-drawing
@@ -40,17 +42,17 @@ yarn add easy-drawing
 ```
 
 
-## 🖱️ Usage
+## 🖱️ 使用
 
 ```jsx
 import  EasyDrawing from 'easy-drawing';
 ```
 
-## 📄 Documents
+## 📄 文档
 
-Adhere to the principle of simplicity, you will not spend too much energy
+坚持一贯的至简原则，不需要花费很多精力
 
-- [`Documents`](https://jinjilynn.github.io)
+- [`文档`](https://jinjilynn.github.io)
 
 
 ## 📷 License
