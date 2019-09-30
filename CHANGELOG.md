@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.24
+
+-   add raf-stub
+
 ## 1.1.21
 
 - add timer

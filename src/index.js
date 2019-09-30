@@ -1,4 +1,5 @@
 import React from 'react'
+import rafSchd from 'raf-schd';
 import Canvas from './canvas/index.js'
 import { fetchDom, lonlatTomercator, scaleRatio, scaleSize } from './tool/index.js'
 import Area from './area/index.js';
@@ -247,74 +248,73 @@ class Map extends React.Component {
             }
         }
     }
-    mapOver = () => {
-        let time = +new Date();
-        return (e) => {
-            let currentime = +new Date();
-            if (currentime - time > 120) {
-                const rect = e.target.getBoundingClientRect();
-                const screenX = e.clientX;
-                const screenY = e.clientY;
-                const x = (screenX - rect.left) * scaleRatio;
-                const y = (screenY - rect.top) * scaleRatio;
-                const areas = this.areaList;
-                for (let i = 0; i < areas.length; i += 1) {
-                    const item = areas[i];
-                    if (typeof item.over === 'object') {
-                        item.createMapPath();
-                        if (item.context.isPointInPath(x, y)) {
-                            item.clearMap();
-                            item.drawMap(item.over.fillStyle);
-                            item.reover = 1;
-                            this.runIn(item, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
-                        } else if (item.reover === 1) {
-                            item.clearMap();
-                            item.drawMap();
-                            this.runOut(item);
-                            item.reover = 0;
-                        }
-                    }
+    overFun = (x, y, screenX, screenY) => {
+        const areas = this.areaList;
+        for (let i = 0; i < areas.length; i += 1) {
+            const item = areas[i];
+            if (typeof item.over === 'object') {
+                item.createMapPath();
+                if (item.context.isPointInPath(x, y)) {
+                    item.clearMap();
+                    item.drawMap(item.over.fillStyle);
+                    item.reover = 1;
+                    this.runIn(item, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
+                } else if (item.reover === 1) {
+                    item.clearMap();
+                    item.drawMap();
+                    this.runOut(item);
+                    item.reover = 0;
                 }
-                const scatterList = this.scatterList;
-                for (let i = 0; i < scatterList.length; i += 1) {
-                    const scatter = scatterList[i];
-                    if (typeof scatter.over === 'object') {
-                        scatter.createPath();
-                        if (scatter.context.isPointInPath(x, y)) {
-                            if (scatter.GENAME === 'symbol') {
-                                scatter.clean()
-                                scatter.render({ color: scatter.over.color })
-                            }
-                            if (scatter.GENAME === 'scatter') {
-                                scatter.stop()
-                                scatter.start(scatter.over.color)
-                            }
-                            if (scatter.GENAME === 'circle') {
-                                scatter.clear()
-                                scatter.fill(scatter.over.color)
-                            }
-                            scatter.reover = 1;
-                            this.runIn(scatter, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
-                        } else if (scatter.reover === 1) {
-                            if (scatter.GENAME === 'symbol') {
-                                scatter.clean()
-                                scatter.render()
-                            }
-                            if (scatter.GENAME === 'scatter') {
-                                scatter.stop()
-                                scatter.start()
-                            }
-                            if (scatter.GENAME === 'circle') {
-                                scatter.clear()
-                                scatter.fill()
-                            }
-                            scatter.reover = 0;
-                            this.runOut(scatter);
-                        }
-                    }
-                }
-                time = +new Date();
             }
+        }
+        const scatterList = this.scatterList;
+        for (let i = 0; i < scatterList.length; i += 1) {
+            const scatter = scatterList[i];
+            if (typeof scatter.over === 'object') {
+                scatter.createPath();
+                if (scatter.context.isPointInPath(x, y)) {
+                    if (scatter.GENAME === 'symbol') {
+                        scatter.clean()
+                        scatter.render({ color: scatter.over.color })
+                    }
+                    if (scatter.GENAME === 'scatter') {
+                        scatter.stop()
+                        scatter.start(scatter.over.color)
+                    }
+                    if (scatter.GENAME === 'circle') {
+                        scatter.clear()
+                        scatter.fill(scatter.over.color)
+                    }
+                    scatter.reover = 1;
+                    this.runIn(scatter, { x: x / scaleRatio, y: y / scaleRatio, screenX, screenY })
+                } else if (scatter.reover === 1) {
+                    if (scatter.GENAME === 'symbol') {
+                        scatter.clean()
+                        scatter.render()
+                    }
+                    if (scatter.GENAME === 'scatter') {
+                        scatter.stop()
+                        scatter.start()
+                    }
+                    if (scatter.GENAME === 'circle') {
+                        scatter.clear()
+                        scatter.fill()
+                    }
+                    scatter.reover = 0;
+                    this.runOut(scatter);
+                }
+            }
+        }
+    }
+    mapOver = () => {
+        const _c = rafSchd(this.overFun.bind(this));
+        return (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const screenX = e.clientX;
+            const screenY = e.clientY;
+            const x = (screenX - rect.left) * scaleRatio;
+            const y = (screenY - rect.top) * scaleRatio;
+            _c(x, y, screenX, screenY);
         }
     }
     runIn = (item, obj) => {
