@@ -10,7 +10,7 @@ A react component that can draw arbitrary graphics、arbitrary maps and motion p
 [![NPM](https://img.shields.io/badge/npm-v1.1.25-blue)](https://www.npmjs.com/package/easy-drawing)    [![size](https://img.shields.io/badge/size-47KB-green)](https://www.npmjs.com/package/easy-drawing)
 
 
-English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/README.zh.md)
+English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/README.md)
 
 ## 📄 [Documents & Examples](https://jinjilynn.github.io)
 
