@@ -13,6 +13,12 @@
 
 [English](https://github.com/jinjilynn/easy-drawing/blob/master/README.en.md) | 简体中文
 
+## 📄 文档和例子
+
+坚持一贯的至简原则，不需要花费很多精力
+
+- [`文档和例子`](https://jinjilynn.github.io)
+
 ## ✨ 描述
 
 通常情况下，就算你对canvas和svg掌握的已经很好了，但是在绘制图形过程中仍然会面临各种挑战，其中最大的挑战就是坐标，比如说各种形状的轮廓顶点坐标或者某个图形内部某个点的位置坐标，一般这种类型的坐标要经过复杂或简单的数学算法得到，所以有时候我就寻思着要是可以像描画一样，不用经过计算就能画出来岂不是美滋滋。
@@ -47,13 +53,6 @@ yarn add easy-drawing
 ```jsx
 import  EasyDrawing from 'easy-drawing';
 ```
-
-## 📄 文档
-
-坚持一贯的至简原则，不需要花费很多精力
-
-- [`文档`](https://jinjilynn.github.io)
-
 
 ## 📷 License
 
