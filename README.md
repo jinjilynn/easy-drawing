@@ -25,7 +25,7 @@
 
 基于这种想法，我选择了使用经纬度绘图的思路，这里经度就是x坐标，纬度就是y坐标
 
-这样你就可以借助百度拾取坐标 http://api.map.baidu.com/lbsapi/getpoint/index.htm 系统画出任何在地图上出现的或者你想象的图形。
+这样你就可以借助[百度拾取坐标](http://api.map.baidu.com/lbsapi/getpoint/index.html)系统画出任何在地图上出现的或者你想象的图形。
 
 
 ## 🚇 支持环境
