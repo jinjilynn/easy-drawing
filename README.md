@@ -19,10 +19,11 @@
 
 ### [`文档和例子`](https://jinjilynn.github.io)
 
+### 
 
 ## ✨ 描述
 
-通常情况下，就算你对canvas和svg掌握的已经很好了，但是在绘制图形过程中仍然会面临各种挑战，其中最大的挑战就是坐标，比如说各种形状的轮廓顶点坐标或者某个图形内部某个点的位置坐标，一般这种类型的坐标要经过复杂或简单的数学算法得到，所以有时候我就寻思着要是可以像描画一样，不用经过计算就能画出来岂不是美滋滋。
+通常情况下，就算你对canvas和svg掌握的已经很好了，但是在绘制图形过程中仍然会面临各种挑战，其中最大的挑战就是坐标，比如说各种形状的轮廓坐标或者图形内部某个点的位置坐标，一般来说这种类型的坐标要经过或复杂或简单的数学算法得到，所以有时候我就寻思着要是可以像临摹图画一样，不用经过计算就能画出来岂不是美滋滋。
 
 基于这种想法，我选择了使用经纬度绘图的思路，这里经度就是x坐标，纬度就是y坐标
 
@@ -31,7 +32,7 @@
 
 ## 🚇 支持环境
 
-Modern browsers and Internet Explorer support canvas
+支持canvas的浏览器
 
 | <img src="https://jinjilynn.github.io/imgs/edge.png" alt="IE / Edge" width="24px" height="24px" />| <img src="https://jinjilynn.github.io/imgs/firefox.png" alt="IE / Edge" width="24px" height="24px" /> | <img src="https://jinjilynn.github.io/imgs/chrome.png" alt="IE / Edge" width="24px" height="24px" /> | <img src="https://jinjilynn.github.io/imgs/safari.png" alt="IE / Edge" width="24px" height="24px" /> | <img src="https://jinjilynn.github.io/imgs/opera.png" alt="IE / Edge" width="24px" height="24px" /> |
 | --- |  --- | --- | --- | --- |
