@@ -52,7 +52,7 @@ class Scatter {
         this.context.save();
         this.context.save();
         this.context.beginPath();
-        this.context.arc(this.x, this.y, this.radius * 4, 0, Math.PI * 2);
+        this.context.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
         this.context.clip();
         this.context.clearRect(-this.context.canvas.width / 2, -this.context.canvas.height / 2, this.context.canvas.width, this.context.canvas.height);
         this.context.restore();
