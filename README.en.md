@@ -16,7 +16,7 @@ English | [简体中文](https://github.com/jinjilynn/easy-drawing/blob/master/R
 
 Adhere to the principle of simplicity, you will not spend too much energy
 
-- [`Documents & Examples`](https://jinjilynn.github.io)
+### [`Documents & Examples`](https://jinjilynn.github.io)
 
 ## ✨ Descriptions
 
