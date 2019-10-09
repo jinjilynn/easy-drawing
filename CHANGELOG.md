@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.27 
+
+- image rendered in async
+
 ## 1.1.26
 
 -   add image type
