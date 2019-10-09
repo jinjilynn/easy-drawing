@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.26
+
+-   add image type
+
 ## 1.1.24
 
 -   add raf-stub

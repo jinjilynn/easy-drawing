@@ -5,6 +5,7 @@ import { fetchDom, lonlatTomercator, scaleRatio, scaleSize } from './tool/index.
 import Area from './area/index.js';
 import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
+import Imgs from './image';
 import Path from './path/index.js'
 import SCircle from './circle/index.js';
 import SText from './text/index.js';
@@ -156,6 +157,10 @@ class Map extends React.Component {
                         const symbol = new CSymbol({ path: it.path, context, center: this.centerPoint, point: it.point, ratio: this.ratio, color: it.color, mouseClick: it.mouseClick, mouseOver: it.mouseOver });
                         symbol.render();
                         this.scatterList.push(symbol);
+                    } else if (it.img) {
+                        const img = new Imgs(context, x, y, it.img, it.mouseClick, it.mouseOver);
+                        img.render();
+                        this.scatterList.push(img);
                     } else {
                         let scatter;
                         const size = typeof it.size === 'number' ? it.size / scaleSize : 10;

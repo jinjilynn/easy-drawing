@@ -1,4 +1,4 @@
-import { timer } from 'd3-timer';
+import { timer } from '../tool';
 import CSymbol from '../symbol';
 
 class Path {

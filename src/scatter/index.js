@@ -1,4 +1,4 @@
-import { timer } from 'd3-timer';
+import { timer } from '../tool';
 
 const maxR = 1.7;
 const seconR = (maxR - 1) / 2 + 1;
