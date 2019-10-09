@@ -145,7 +145,7 @@ class Map extends React.Component {
         if (Array.isArray(scatters)) {
             const context = this.scatterCanvas.canvas.getContext('2d');
             context.translate(context.canvas.width / 2, context.canvas.height / 2);
-            scatters.forEach(it => {
+            scatters.forEach(async it => {
                 let point = lonlatTomercator(it.point);
                 let x = (point[0] - this.centerPoint[0]) * this.ratio;
                 let y = (this.centerPoint[1] - point[1]) * this.ratio;

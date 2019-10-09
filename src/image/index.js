@@ -24,12 +24,15 @@ class Img {
         this.context.beginPath();
         this.context.rect(this.x - this.offsetX * this.width, this.y - this.height * this.offsetY, this.width, this.height)
     }
-    render() {
-        const image = new Image(this.width, this.height);
-        image.src = this.src;
-        image.onload = () => {
-            this.context.drawImage(image, this.x - this.offsetX * this.width, this.y - this.height * this.offsetY, this.width, this.height);
-        }
+    async render() {
+        this.image = new Image(this.width, this.height);
+        this.image.src = this.src;
+        await new Promise(resolve => {
+            this.image.onload = () => {
+                this.context.drawImage(this.image, this.x - this.offsetX * this.width, this.y - this.height * this.offsetY, this.width, this.height);
+                resolve();
+            }
+        })
     }
 
 
