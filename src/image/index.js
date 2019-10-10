@@ -24,10 +24,10 @@ class Img {
         this.context.beginPath();
         this.context.rect(this.x - this.offsetX * this.width, this.y - this.height * this.offsetY, this.width, this.height)
     }
-    async render() {
+    render() {
         this.image = new Image(this.width, this.height);
         this.image.src = this.src;
-        await new Promise(resolve => {
+        return new Promise(resolve => {
             this.image.onload = () => {
                 this.context.drawImage(this.image, this.x - this.offsetX * this.width, this.y - this.height * this.offsetY, this.width, this.height);
                 resolve();

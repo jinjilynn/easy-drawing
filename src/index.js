@@ -159,7 +159,7 @@ class Map extends React.Component {
                         this.scatterList.push(symbol);
                     } else if (it.img) {
                         const img = new Imgs(context, x, y, it.img, it.mouseClick, it.mouseOver);
-                        img.render();
+                        await img.render();
                         this.scatterList.push(img);
                     } else {
                         let scatter;
