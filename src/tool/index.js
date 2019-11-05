@@ -39,7 +39,8 @@ export function fetchDom(dom, callback) {
 
 export const animstate = {
     animQueue : {},
-    _a : false
+    _a : false,
+    id:null
 }
 
 function _startA() {
@@ -47,18 +48,19 @@ function _startA() {
     queue.forEach(function (cb) {
         cb();
     });
-    animstate._a && window.requestAnimationFrame(_startA);
+    animstate._a && (animstate.id = window.requestAnimationFrame(_startA));
 }
 
 export function timer(callback) {
     const aid = `animation_${(Math.random() * Math.random()).toString().replace(/\./g, '')}`;
     animstate.animQueue[aid] = callback;
     if (!animstate._a) {
-        window.requestAnimationFrame(_startA);
+        animstate.id = window.requestAnimationFrame(_startA);
         animstate._a = true;
     }
     return {
         stop() {
+            window.cancelAnimationFrame(animstate.id);
             delete animstate.animQueue[aid];
             if (Object.keys(animstate.animQueue).length === 0) {
                 animstate._a = false;
