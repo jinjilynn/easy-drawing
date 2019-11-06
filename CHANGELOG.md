@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.1.30
+
+- fix animate bug
+
 ## 1.1.27 
 
 - image rendered in async

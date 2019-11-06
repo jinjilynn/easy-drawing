@@ -39,22 +39,24 @@ export function fetchDom(dom, callback) {
 
 export const animstate = {
     animQueue : {},
-    _a : false
+    _a : false,
+    _id: null
 }
 
 function _startA() {
     const queue = Object.values(animstate.animQueue);
+    console.log(queue.length);
     queue.forEach(function (cb) {
         cb();
     });
-    animstate._a && window.requestAnimationFrame(_startA);
+    animstate._a && (animstate._id = window.requestAnimationFrame(_startA));
 }
 
 export function timer(callback) {
     const aid = `animation_${(Math.random() * Math.random()).toString().replace(/\./g, '')}`;
     animstate.animQueue[aid] = callback;
     if (!animstate._a) {
-        window.requestAnimationFrame(_startA);
+        animstate._id = window.requestAnimationFrame(_startA);
         animstate._a = true;
     }
     return {

@@ -1,7 +1,7 @@
 import React from 'react'
 import rafSchd from 'raf-schd';
 import Canvas from './canvas/index.js'
-import { fetchDom, lonlatTomercator, scaleRatio, scaleSize } from './tool/index.js'
+import { fetchDom, lonlatTomercator, scaleRatio, scaleSize, animstate } from './tool/index.js'
 import Area from './area/index.js';
 import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
@@ -329,6 +329,7 @@ class Map extends React.Component {
         typeof item.over.moveOut === 'function' && (item.over.moveOut())
     }
     componentWillUnmount() {
+        cancelAnimationFrame(animstate._id);
         this.areaList = [];
         this.scatterList.forEach(it => {
             typeof it.stop === 'function' && it.stop();
