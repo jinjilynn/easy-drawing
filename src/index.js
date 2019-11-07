@@ -329,7 +329,6 @@ class Map extends React.Component {
         typeof item.over.moveOut === 'function' && (item.over.moveOut())
     }
     componentWillUnmount() {
-        cancelAnimationFrame(animstate._id);
         this.areaList = [];
         this.scatterList.forEach(it => {
             typeof it.stop === 'function' && it.stop();

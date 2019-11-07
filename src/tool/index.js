@@ -55,6 +55,7 @@ export function timer(callback) {
     const aid = `animation_${(Math.random() * Math.random()).toString().replace(/\./g, '')}`;
     animstate.animQueue[aid] = callback;
     if (!animstate._a) {
+        window.cancelAnimationFrame(animstate._id);
         animstate._id = window.requestAnimationFrame(_startA);
         animstate._a = true;
     }
