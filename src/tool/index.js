@@ -45,7 +45,6 @@ export const animstate = {
 
 function _startA() {
     const queue = Object.values(animstate.animQueue);
-    console.log(queue.length);
     queue.forEach(function (cb) {
         cb();
     });
