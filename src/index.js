@@ -1,7 +1,7 @@
 import React from 'react'
 import rafSchd from 'raf-schd';
 import Canvas from './canvas/index.js'
-import { fetchDom, lonlatTomercator, scaleRatio, scaleSize, animstate } from './tool/index.js'
+import { fetchDom, lonlatToGauss, lonlatTomercator, scaleRatio, scaleSize, animstate } from './tool/index.js'
 import Area from './area/index.js';
 import Scatter from './scatter/index.js';
 import CSymbol from './symbol';
@@ -53,15 +53,14 @@ class Map extends React.Component {
             this.minLat = null
             for (let i = 0; i < areas.length; i += 1) {
                 if (Array.isArray(areas[i].polygon)) {
-                    areas[i].polygon = areas[i].polygon.map(it => {
-                        let geo = (it);
+                    areas[i].polygon.forEach(it => {
+                        let geo = this.props.geoType === 'mercator' ? lonlatTomercator(it) : lonlatToGauss(it);
                         const x = geo[0];
                         const y = geo[1];
                         this.maxLng === null ? this.maxLng = x : (this.maxLng = Math.max(this.maxLng, x));
                         this.minLng === null ? this.minLng = x : (this.minLng = Math.min(this.minLng, x));
                         this.maxLat === null ? this.maxLat = y : (this.maxLat = Math.max(this.maxLat, y));
                         this.minLat === null ? this.minLat = y : (this.minLat = Math.min(this.minLat, y));
-                        return geo;
                     });
                 }
             }
@@ -97,8 +96,8 @@ class Map extends React.Component {
             this.minLng !== null &&
             this.minLat !== null) {
             const canvas = this.canvas.canvas;
-            let limitMin = lonlatTomercator([this.minLng, this.minLat]);
-            let limitMax = lonlatTomercator([this.maxLng, this.maxLat]);
+            let limitMin = ([this.minLng, this.minLat]);
+            let limitMax = ([this.maxLng, this.maxLat]);
             let centerPoint = [(limitMax[0] + limitMin[0]) / 2, (limitMax[1] + limitMin[1]) / 2];
             let cwidth = Math.min(canvas.width, canvas.height);
             let lwidth = Math[size === 'cover' ? 'min' : 'max'](limitMax[1] - limitMin[1], limitMax[0] - limitMin[0]);
@@ -118,7 +117,7 @@ class Map extends React.Component {
             if (Array.isArray(area.polygon)) {
                 let polygons = [...area.polygon]
                 polygons = polygons.map(it => {
-                    let point = lonlatTomercator(it);
+                    let point = this.props.geoType === 'mercator' ? lonlatTomercator(it) : lonlatToGauss(it);
                     return [(point[0] - this.centerPoint[0]) * this.ratio, (this.centerPoint[1] - point[1]) * this.ratio]
                 })
                 this.areaList.push(new Area(
@@ -146,7 +145,7 @@ class Map extends React.Component {
             const context = this.scatterCanvas.canvas.getContext('2d');
             context.translate(context.canvas.width / 2, context.canvas.height / 2);
             scatters.forEach(async it => {
-                let point = lonlatTomercator(it.point);
+                let point = this.props.geoType === 'mercator' ? lonlatTomercator(it.point) : lonlatToGauss(it.point);
                 let x = (point[0] - this.centerPoint[0]) * this.ratio;
                 let y = (this.centerPoint[1] - point[1]) * this.ratio;
                 if (it.pointAtCanvas) {
@@ -192,7 +191,7 @@ class Map extends React.Component {
                     return;
                 }
                 const poinsList = points.map(it => {
-                    const point = lonlatTomercator(it);
+                    const point = this.props.geoType === 'mercator' ? lonlatTomercator(it) : lonlatToGauss(it);
                     const x = (point[0] - this.centerPoint[0]) * this.ratio;
                     const y = (this.centerPoint[1] - point[1]) * this.ratio;
                     return [x, y];
@@ -219,7 +218,7 @@ class Map extends React.Component {
             const context = this.textCanvas.canvas.getContext('2d');
             context.translate(context.canvas.width / 2, context.canvas.height / 2);
             texts.forEach(it => {
-                let point = lonlatTomercator(it.point);
+                let point = this.props.geoType === 'mercator' ? lonlatTomercator(it.point) : lonlatToGauss(it.point);
                 let x = (point[0] - this.centerPoint[0]) * this.ratio;
                 let y = (this.centerPoint[1] - point[1]) * this.ratio;
                 if (typeof it.text === 'string') {

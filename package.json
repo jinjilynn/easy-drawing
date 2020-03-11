@@ -1,6 +1,6 @@
 {
   "name": "easy-drawing",
-  "version": "1.1.32",
+  "version": "1.2.1",
   "description": "a react component that can draw arbitrary graphics and motion path in canvas by using latitude and longitude easily",
   "main": "dist/index.js",
   "scripts": {},
@@ -30,6 +30,8 @@
     "dist"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.8.7",
+    "core-js": "^2.6.11",
     "raf-schd": "^4.0.2",
     "react": "^16.8.6",
     "svg-path-bounding-box": "^1.0.4",

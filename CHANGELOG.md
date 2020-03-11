@@ -1,5 +1,9 @@
 # Changelog for easy-drawing
 
+## 1.2.0
+
+- add gauss transform
+
 ## 1.1.30
 
 - fix animate bug

@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "webpack-compilier",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "jinjilin <jinjilin@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "analyse": "webpack --profile --json > stats.json --config webpack.config.pro.js",
+    "build": "webpack --config webpack.config.pro.js --progress",
+    "dev": "webpack-dev-server --config webpack.config.dev.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-import": "^1.12.2",
+    "clean-webpack-plugin": "^2.0.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
