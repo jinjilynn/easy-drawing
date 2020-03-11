@@ -54,7 +54,7 @@ class Map extends React.Component {
             for (let i = 0; i < areas.length; i += 1) {
                 if (Array.isArray(areas[i].polygon)) {
                     areas[i].polygon.forEach(it => {
-                        let geo = this.props.geoType === 'mercator' ? lonlatTomercator(it) : lonlatToGauss(it);
+                        let geo = this.props.geoType !== 'gauss' ? lonlatTomercator(it) : lonlatToGauss(it);
                         const x = geo[0];
                         const y = geo[1];
                         this.maxLng === null ? this.maxLng = x : (this.maxLng = Math.max(this.maxLng, x));
@@ -117,7 +117,7 @@ class Map extends React.Component {
             if (Array.isArray(area.polygon)) {
                 let polygons = [...area.polygon]
                 polygons = polygons.map(it => {
-                    let point = this.props.geoType === 'mercator' ? lonlatTomercator(it) : lonlatToGauss(it);
+                    let point = his.props.geoType !== 'gauss' ? lonlatTomercator(it) : lonlatToGauss(it);
                     return [(point[0] - this.centerPoint[0]) * this.ratio, (this.centerPoint[1] - point[1]) * this.ratio]
                 })
                 this.areaList.push(new Area(
@@ -145,7 +145,7 @@ class Map extends React.Component {
             const context = this.scatterCanvas.canvas.getContext('2d');
             context.translate(context.canvas.width / 2, context.canvas.height / 2);
             scatters.forEach(async it => {
-                let point = this.props.geoType === 'mercator' ? lonlatTomercator(it.point) : lonlatToGauss(it.point);
+                let point = his.props.geoType !== 'gauss' ? lonlatTomercator(it.point) : lonlatToGauss(it.point);
                 let x = (point[0] - this.centerPoint[0]) * this.ratio;
                 let y = (this.centerPoint[1] - point[1]) * this.ratio;
                 if (it.pointAtCanvas) {
@@ -191,7 +191,7 @@ class Map extends React.Component {
                     return;
                 }
                 const poinsList = points.map(it => {
-                    const point = this.props.geoType === 'mercator' ? lonlatTomercator(it) : lonlatToGauss(it);
+                    const point = his.props.geoType !== 'gauss' ? lonlatTomercator(it) : lonlatToGauss(it);
                     const x = (point[0] - this.centerPoint[0]) * this.ratio;
                     const y = (this.centerPoint[1] - point[1]) * this.ratio;
                     return [x, y];
@@ -218,7 +218,7 @@ class Map extends React.Component {
             const context = this.textCanvas.canvas.getContext('2d');
             context.translate(context.canvas.width / 2, context.canvas.height / 2);
             texts.forEach(it => {
-                let point = this.props.geoType === 'mercator' ? lonlatTomercator(it.point) : lonlatToGauss(it.point);
+                let point = his.props.geoType !== 'gauss' ? lonlatTomercator(it.point) : lonlatToGauss(it.point);
                 let x = (point[0] - this.centerPoint[0]) * this.ratio;
                 let y = (this.centerPoint[1] - point[1]) * this.ratio;
                 if (typeof it.text === 'string') {
