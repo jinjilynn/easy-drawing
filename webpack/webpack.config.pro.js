@@ -7,6 +7,7 @@ const entryPath = path.resolve(dir, pathConfig.entry || 'src/index.js');
 
 const pro = {
     mode: 'production',
+    externals: 'react',
     entry: {
         index: entryPath
     },
@@ -14,8 +15,8 @@ const pro = {
         filename: 'index.js',
         path: outPath,
         library: 'easy_drawing',
-        globalObject: 'this', 
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        globalObject: 'this'
     },
     module: {
         rules: [
